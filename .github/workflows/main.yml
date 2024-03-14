@@ -31,7 +31,7 @@ jobs:
           host    : ${{ env.HOST }}
           username: ${{ env.USERNAME }}
           KEY     : ${{ env.KEY }}
-          target  : ${{ env.DEPLOY_PACKAGE_NAME }}
+          target  : .
           source  : "/var/www/html"
 
       - name: Print happy message fro CI finish
