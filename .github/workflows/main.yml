@@ -1,0 +1,24 @@
+name: CI-CD-Pipeline-To-Yandex-Cloud
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  DEPLOY_PACKAGE_NAME: "my_cv_${{ github.sha }}.zip"
+  HOST               : "158.160.103.96"
+  USERNAME           : "portfolio"
+  KEY                : ${{ secrets.KEY} }
+
+jobs:
+  ci_part:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git clone our repo
+        uses: actions/checkout@v4
+
+      - name: Create ZIP deployment package
+        run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
+    
