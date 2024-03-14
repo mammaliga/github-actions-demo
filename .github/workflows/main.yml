@@ -31,8 +31,8 @@ jobs:
           host    : ${{ env.HOST }}
           username: ${{ env.USERNAME }}
           KEY     : ${{ env.KEY }}
-          target  : .
-          source  : "/var/www/html"
+          target  : "/var/www/html"
+          source  : ${{ env.DEPLOY_PACKAGE_NAME }}
 
       - name: Print happy message fro CI finish
         run: echo "CI Pipeline part Finished successfully"
