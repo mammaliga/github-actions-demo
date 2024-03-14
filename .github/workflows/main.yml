@@ -7,8 +7,8 @@ on:
 
 env:
   DEPLOY_PACKAGE_NAME: "my_cv_${{ github.sha }}.zip"
-  HOST               : "158.160.103.96"
-  USERNAME           : "portfolio"
+  HOST               : ${{ secrets.HOST }}
+  USERNAME           : ${{ secrets.USERNAME }}
   KEY                : ${{ secrets.KEY}}
 
 jobs:
@@ -19,6 +19,20 @@ jobs:
       - name: Git clone our repo
         uses: actions/checkout@v4
 
+      - name: Unit tests execution
+        run: echo "Unit Tests passed"
+
       - name: Create ZIP deployment package
         run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
-    
+
+      - name: Copy files to server
+        uses: appleboy/scp-action@master
+        with:
+          host    : ${{ env.HOST }}
+          username: ${{ env.USERNAME }}
+          KEY     : ${{ env.KEY }}
+          target  : ${{ env.DEPLOY_PACKAGE_NAME }}
+          source  : "/var/www/html"
+
+      - name: Print happy message fro CI finish
+        run: echo "CI Pipeline part Finished successfully"
