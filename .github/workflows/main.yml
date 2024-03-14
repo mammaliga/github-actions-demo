@@ -9,7 +9,7 @@ env:
   DEPLOY_PACKAGE_NAME: "my_cv_${{ github.sha }}.zip"
   HOST               : "158.160.103.96"
   USERNAME           : "portfolio"
-  KEY                : ${{ secrets.KEY} }
+  KEY                : ${{ secrets.KEY}}
 
 jobs:
   ci_part:
